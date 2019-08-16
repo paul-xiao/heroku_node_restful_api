@@ -1,2 +1,2 @@
-# addons
-heroku addons:create mongolab
+# run 
+npm start
