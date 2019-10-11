@@ -1,5 +1,7 @@
 image: node:latest
 
+tags:
+  - test
 stages:
   - production
   
