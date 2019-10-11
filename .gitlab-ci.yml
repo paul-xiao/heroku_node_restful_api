@@ -6,13 +6,10 @@
     type: deploy
     tags:
       - test
-      - test1
     stage: production
-    image: ruby:latest
+    image: node:latest
     script:
-      - apt-get update -qy
-      - apt-get install -y ruby-dev
-      - gem install dpl
-      - dpl --provider=heroku --app=heroku_node_restful_api --api-key=61ba6974-7c35-4f17-bb4f-10cb4d124830
+      - npm i
+      - echo 'hellword'
     only:
       - master
