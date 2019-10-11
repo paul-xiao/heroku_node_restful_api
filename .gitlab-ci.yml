@@ -1,12 +1,11 @@
-job:
-  tags:
-    - test
   image: node:latest
   stages:
     - production
     
   production:
     type: deploy
+    tags:
+      - test
     stage: production
     image: ruby:latest
     script:
