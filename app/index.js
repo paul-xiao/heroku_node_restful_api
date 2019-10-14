@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const db = require('./config/db');
 const cors = require('cors');
 const crawler = require('./utils/crawler')
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 const app = express();
 
 
@@ -38,6 +40,11 @@ app.get('/user', userController.findAll);
 app.get('/userinfo', passport.authenticate('jwt', {
     session: false
 }), userController.getUser);
+
+//post
+const postController = require('./controller/post');
+
+app.post('/savepost', upload.single('file'), postController.savePost)
 
 let data = []
 crawler.queue([{
