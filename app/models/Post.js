@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // Define collection and schema for Post
 const Post = new Schema({
-    image: {
+    file: {
         data: Buffer,
         contentType: String
     },

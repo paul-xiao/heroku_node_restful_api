@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(cors());
 
+mongoose.Promise = global.Promise;
 mongoose.connect(db.DB, {
     useNewUrlParser: true
 }).then(() => {
@@ -45,6 +46,9 @@ app.get('/userinfo', passport.authenticate('jwt', {
 const postController = require('./controller/post');
 
 app.post('/savepost', upload.single('file'), postController.savePost)
+app.get('/getpost', postController.getPost)
+app.get('/getfile/:id', postController.getFile)
+app.delete('/delpost/:id', postController.delPost)
 
 let data = []
 crawler.queue([{
