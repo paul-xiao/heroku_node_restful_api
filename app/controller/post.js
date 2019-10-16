@@ -39,11 +39,11 @@ exports.savePost = async (req, res) => {
 exports.getPost = (req, res) => {
     Post.find().then(data => {
         const posts = []
+        const domain = process.env.HEROKU_APP_NAME ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com` : 'http://localhost:8080'
         data.forEach(item => {
-            console.log(item)
             posts.push({
                 'id': item.id,
-                'url': `http://localhost:8080/getfile/` + item.id,
+                'url': `${domain}/getfile/${item.id}`,
                 'desc': item.desc,
                 'contentType': item.file && item.file.contentType || 'undefined'
             })
