@@ -8,23 +8,30 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 
-// save file and desc
-
+/*
+* save file and desc
+* web
+* mobile
+*/
 exports.savePost = async (req, res) => {
-
     const newPost = new Post({
         file: {
             data: fs.readFileSync(req.file.path),
-            contentType: req.file.mimetype
+            contentType: req.file.mimetype,
+            name: req.file.originalname
         },
         desc: req.body.desc
     });
 
+   try {
     await newPost.save().catch(error => {
         res.send({
             message: error.message || 'fail'
         })
     })
+   } catch (error) {
+       console.log(error)
+   }
 
     await unlinkAsync(req.file.path)
     res.send({
@@ -39,7 +46,7 @@ exports.savePost = async (req, res) => {
 exports.getPost = (req, res) => {
     Post.find().then(data => {
         const posts = []
-        const domain = process.env.HEROKU_APP_NAME ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com` : 'http://localhost:8080'
+        const domain = process.env.HEROKU_APP_NAME ? `https://${process.env.HEROKU_APP_NAME}.herokuapp.com` : 'http://192.168.196.75:8080'
         data.forEach(item => {
             posts.push({
                 'id': item.id,

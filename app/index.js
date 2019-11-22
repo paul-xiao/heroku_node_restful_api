@@ -9,6 +9,8 @@ const upload = multer({ dest: 'uploads/' })
 const app = express();
 
 
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
@@ -16,7 +18,8 @@ app.use(cors());
 
 mongoose.Promise = global.Promise;
 mongoose.connect(db.DB, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useCreateIndex: true
 }).then(() => {
     console.log('Database is connected')
 }, err => {
@@ -49,6 +52,14 @@ app.post('/savepost', upload.single('file'), postController.savePost)
 app.get('/getpost', postController.getPost)
 app.get('/getfile/:id', postController.getFile)
 app.delete('/delpost/:id', postController.delPost)
+
+
+// graph
+
+const graphController = require('./controller/graph')
+
+app.post('/graph/add', graphController.addGraph)
+app.get('/graph', graphController.getGraph)
 
 let data = []
 crawler.queue([{

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 // Define collection and schema for Course
 var User = new Schema({
