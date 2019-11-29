@@ -9,6 +9,7 @@ exports.addGraph = (req, res) => {
         target,
         desc
     } = req.body
+
     const req_data = {
         nodename,
         category,
@@ -34,6 +35,7 @@ exports.addGraph = (req, res) => {
                     })
                 } else {
                     res.status(500).send(err)
+                    console.log(err)
                 }
             })
         } else {
@@ -54,5 +56,17 @@ exports.getGraph = (req, res) => {
     Graph.find().then(graph => {
         const data = graph.map(item => {const {nodename, category, target, desc, createdAt} = item; return {nodename, category, target, desc, createdAt}})
         res.send(data)
+    }).catch(err => {
+        res.status(500).send(err)
+    })
+}
+
+
+exports.getGraphById = (req, res) => {
+    const {id} = req.params
+    Graph.find({nodename: id}).then(graph => {
+        res.send(graph[0])
+    }).catch(err => {
+        res.status(500).send(err)
     })
 }
