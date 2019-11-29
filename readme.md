@@ -126,3 +126,10 @@ $ docker exec -it <container id> /bin/bash
 [Docker Compose V3 Docs](https://docs.docker.com/compose/compose-file/#volumes)
 
 
+# crawler
+
+[ ] axios + cherrio ?
+[ ] puppeteer ?
+
+ 
+
