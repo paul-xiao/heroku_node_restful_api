@@ -13,17 +13,16 @@ services:
     networks:
       paultest:
         aliases:
-         - app
+          - app
   mongo:
     container_name: heroku_api_mongo
     image: mongo
     networks:
       paultest:
         aliases:
-         - mongo
+          - mongo
     ports:
-      - "27018:27017"
-
+      - "27017:27017"
 
 networks:
   paultest:

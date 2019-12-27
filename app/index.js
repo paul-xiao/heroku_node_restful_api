@@ -42,6 +42,9 @@ app.get('/user', userController.findAll);
 app.get('/userinfo', passport.authenticate('jwt', {
     session: false
 }), userController.getUser);
+app.post('/user/update', passport.authenticate('jwt', {
+    session: false
+}), userController.editUser);
 
 //post
 const postController = require('./controller/post');

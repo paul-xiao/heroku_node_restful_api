@@ -153,6 +153,33 @@ exports.getUser = (req, res) => {
     }
 };
 
+exports.editUser = (req, res) => {
+    var token = getToken(req.headers);
+    const profile = {
+        avatar: '',
+        nickname: '',
+        region: '',
+        slogan: ''
+    }
+    const { body } = req
+    if (token) {
+        var decoded = jwt.decode(token, config.secret);
+        console.log(decoded.username);
+        User.update({
+            username: decoded.username
+        },{...profile, body}, function (err) {
+            if (err) throw err;
+            console.log('update success')
+        });
+    } else {
+        return res.status(403).send({
+            success: false,
+            msg: 'No token provided.'
+        });
+    }
+}
+
+
 getToken = function (headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');

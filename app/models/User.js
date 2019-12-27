@@ -11,6 +11,18 @@ var User = new Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        type: String
+    },
+    nickname: {
+        type: String
+    },
+    region: {
+        type: String
+    },
+    slogan: {
+        type: String
     }
 },{
     timestamps: true,
