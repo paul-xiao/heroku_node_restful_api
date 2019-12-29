@@ -408,7 +408,6 @@ let a = [
     active: true
   }
 ]
-let path = []
 const node1 = {
   id: 5208259329,
   name: 'Online Storage',
@@ -433,32 +432,71 @@ const node4 = {
   parent_id: 5368871425,
   rootfolder_id: undefined
 }
-const updatePath = (a, node) => {
-  console.log('-------add ------------')
-  console.log(node)
-  if (path.length > 0) {
-    a.forEach((e, i) => {
-      if (node.rootfolder_id && node.id === e.id) {
-        // level 1
-        path[0] = node
-      }
-      if (node.parent_id === e.rootfolder_id) {
-        // level 2
-        path.splice(i, path.length - (i + 1), node)
-      }
-    })
-  } else {
-    path.push(node)
-  }
-  return path
-}
-path = [
-  {
-    id: 5208259329,
-    name: 'Online Storage',
-    parent_id: undefined,
-    rootfolder_id: 5208259585
-  }
-]
 
-console.log(updatePath(a, node2))
+
+
+function getNodePath(id, tree) {
+  if (tree.id == id) {
+    const { id, name } = tree
+    let path = [{ id, name }];
+    return path;
+  } else if (tree.children) {
+    for (let child of tree.children) {
+      let tmp = getNodePath(id, child);
+      if (tmp) {
+        const { id, name } = tree
+        tmp.unshift({ id, name });
+        return tmp;
+      }
+    }
+    return {};
+  }
+}
+
+function getPrevSlectedId (id, path) {
+  let prevSelectedId = path[0].id
+  path.forEach((node, i) => {
+    prevSelectedId = node.id === id && i > 0 ? path[i - 1].id : prevSelectedId
+  })
+  return prevSelectedId
+}
+let selectedId = a[0].id
+function isInclude(id, node) {
+  return node.some(e => id === e.id)
+}
+function delTreeNode(id, tree) {
+  return tree.map((e, i) => {
+    if (e.children && e.children.length > 0) {
+      if (isInclude(id, e.children)) {
+        const path = getNodePath(id, a[0])
+        selectedId = getPrevSlectedId(id, path)
+        e.children = e.children.filter(e => e.id !== id)
+      } else {
+      const child = delTreeNode(id, e.children)
+       e =  {
+         ...e,
+         children: child
+       }
+      }
+      return e
+    }
+    return e
+  })
+
+}
+
+function addTreeNode(id, tree) {
+
+}
+
+function renameTreeNode(id, tree) {
+
+}
+
+
+console.log(delTreeNode(node4.id, a))
+console.log(selectedId)
+console.log('---------result----------')
+
+
+
