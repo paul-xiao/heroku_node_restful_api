@@ -131,5 +131,11 @@ $ docker exec -it <container id> /bin/bash
 [ ] axios + cherrio ?
 [ ] puppeteer ?
 
+### heap / stack
+### issue
+
+1, init map, not able to expand tree
+2, add, remove, change name etc
+3, revert to tree
  
 
