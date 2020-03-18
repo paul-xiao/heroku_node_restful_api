@@ -137,5 +137,5 @@ $ docker exec -it <container id> /bin/bash
 1, init map, not able to expand tree
 2, add, remove, change name etc
 3, revert to tree
- 
+4. jwt redis session  [jwt/session 对比](https://www.cnblogs.com/yuanrw/p/10089796.html) jwt 适合一次性的认证
 

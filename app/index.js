@@ -6,6 +6,7 @@ const cors = require('cors');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 const app = express();
+const {success, error} = require('./utils/logs')
 
 
 
@@ -19,9 +20,9 @@ mongoose.connect(db.DB, {
     useNewUrlParser: true,
     useCreateIndex: true
 }).then(() => {
-    console.log('Database is connected')
+    success('Database is connected')
 }, err => {
-    console.log('Can not connect to the database' + err)
+    error('Can not connect to the database' + err)
 });
 
 // home
